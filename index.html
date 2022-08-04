@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,15 +9,48 @@
   <link rel="stylesheet" href="css/style.css" />
   <title>momentum</title>
 </head>
+
 <body>
   <header class="header">
     <div class="player">
-      <div class="player-controls">
-        <button class="play-prev player-icon"></button>
-        <button class="play player-icon"></button>
-        <button class="play-next player-icon"></button>
+      <div class="details">
+        <!-- <div class="now-playing">PLAYING x OF y</div> -->
+        <div class="track-art"></div>
+        <div class="track-name">Track Name</div>
+        <!-- <div class="track-artist">Track Artist</div> -->
       </div>
-      <ul class="play-list"></ul>
+      <div class="slider_container">
+        <div class="current-time">00:00</div>
+        <input type="range" min="1" max="100" value="0" class="seek_slider" oninput="seekTo()">
+        <div class="total-duration">00:00</div>
+      </div>
+
+      <div class="slider_container">
+        <i class="fa fa-volume-down"></i>
+        <input type="range" min="1" max="100" value="99" class="volume_slider" oninput="setVolume()"
+          onchange="setVolume()">
+        <i class="fa fa-volume-up"></i>
+      </div>
+      <div class="player-controls">
+        <button class="play-prev player-icon" onclick="prevTrack()"></button>
+        <button id="player" class="play player-icon" onclick="playpauseTrack()"></button>
+        <button class="play-next player-icon" onclick="nextTrack()"></button>
+      </div>
+      <ul class="play-list">
+        <div id="trackbox"></div>
+        <!-- <li>
+          <div class="list-1">
+            <button id="player" class="play player-icon" onclick="playpauseTrack()"></button>
+            <p>River</p>
+          </div>
+        </li>
+        <li>
+          <div class="list-1">
+            <button id="player" class="play player-icon" onclick="playpauseTrack()"></button>
+            <p>River</p>
+          </div>
+        </li> -->
+      </ul>
     </div>
     <div class="weather">
       <input type="text" class="city" />
@@ -39,7 +73,7 @@
     <date class="date"></date>
     <div class="greeting-container">
       <span class="greeting"></span>
-      <input type="text" class="name" />
+      <input id="idName" type="text" class="name" />
     </div>
   </main>
   <footer class="footer">
@@ -51,4 +85,5 @@
   </footer>
   <script src="js/script.js"></script>
 </body>
+
 </html>
