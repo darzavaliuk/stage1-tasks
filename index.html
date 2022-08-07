@@ -6,13 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="assets/favicon.ico" rel="shortcut icon" />
   <link rel="stylesheet" href="css/owfont-regular.css" />
+  <!-- <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"> -->
   <link rel="stylesheet" href="css/style.css" />
   <title>momentum</title>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 
 <body>
   <header class="header">
-    <div class="player">
+    <div class="player appear">
       <div class="details">
         <!-- <div class="now-playing">PLAYING x OF y</div> -->
         <div class="track-art"></div>
@@ -52,7 +54,7 @@
         </li> -->
       </ul>
     </div>
-    <div class="weather">
+    <div class="weather appear">
       <input type="text" class="city" />
       <i class="weather-icon owf"></i>
       <div class="weather-error"></div>
@@ -69,18 +71,73 @@
       <button class="slide-prev slider-icon"></button>
       <button class="slide-next slider-icon"></button>
     </div>
-    <time class="time"></time>
-    <date class="date"></date>
-    <div class="greeting-container">
+    <time class="time appear"></time>
+    <date class="date appear"></date>
+    <div class="greeting-container appear">
       <span class="greeting"></span>
       <input id="idName" type="text" class="name" />
     </div>
   </main>
   <footer class="footer">
-    <button class="change-quote"></button>
-    <div>
-      <div class="quote"></div>
-      <div class="author"></div>
+    <div class="settings-1">
+      <div class="panel appear">
+        <div class="choose-lang">
+          <h3 class="title__choosing-lang">Choose language:</h3>
+          <div class="choosing-lang">
+            <input type="radio" class="language" name="language" value="EN" id="en" onchange="changeLangEn()">
+            <h4 class="lang-input-en">En</h4>
+            <input type="radio" class="language" name="language" value="RU" id="ru" onchange="changeLangRus()">
+            <h4>Rus</h4>
+          </div>
+        </div>
+        <!-- <h2>kjhfkgjd</h2> -->
+        <div class="choose-api">
+          <h3 class="title__choosing-api">Choose image</h3>
+          <div class="choosing-api">
+            <input type="radio" name="api">
+            <h4>GitHub</h4>
+            <input type="radio" name="api">
+            <h4>API flickr</h4>
+            <input type="radio" name="api">
+            <h4>API</h4>
+          </div>
+        </div>
+        <div class="visibility-panel">
+          <p><input type="checkbox" name="hide" onclick="changeVisibPlayer()">player</p>
+          <p><input type="checkbox" name="hide" onclick="changeVisibWeather()">weather</p>
+          <p><input type="checkbox" name="hide" onclick="changeVisibDate()">date</p>
+          <p><input type="checkbox" name="hide" onclick="changeVisibTime()">time</p>
+          <p><input type="checkbox" name="hide" onclick="changeVisibGreeting()">greeting</p>
+          <p><input type="checkbox" name="hide" onclick="changeVisibCitate()">citate</p>
+        </div>
+      </div>
+      <div class="settings">
+
+      </div>
+    </div>
+    <div class="change__quote appear">
+      <button class="change-quote"></button>
+      <div>
+        <div class="quote"></div>
+        <div class="author"></div>
+      </div>
+    </div>
+    <div class="todo-list">
+      <div class="wrapper">
+        <div class="task-input">
+          <img src="bars-icon.svg" alt="icon">
+          <input type="text" placeholder="Add a new task">
+        </div>
+        <div class="controls">
+          <div class="filters">
+            <span class="activ" id="all">All</span>
+            <span id="pending">Pending</span>
+            <span id="completed">Completed</span>
+          </div>
+          <button class="clear-btn">Clear All</button>
+        </div>
+        <ul class="task-box"></ul>
+      </div>
     </div>
   </footer>
   <script src="js/script.js"></script>
