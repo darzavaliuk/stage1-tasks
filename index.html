@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="css/style.css" />
   <title>momentum</title>
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -27,11 +29,11 @@
         <div class="total-duration">00:00</div>
       </div>
 
-      <div class="slider_container">
-        <i class="fa fa-volume-down"></i>
+      <div class="slider_container vol">
+        <i class="fa fa-volume-down" onclick="turnOffSound()"></i>
         <input type="range" min="1" max="100" value="99" class="volume_slider" oninput="setVolume()"
           onchange="setVolume()">
-        <i class="fa fa-volume-up"></i>
+
       </div>
       <div class="player-controls">
         <button class="play-prev player-icon" onclick="prevTrack()"></button>
@@ -81,34 +83,56 @@
   <footer class="footer">
     <div class="settings-1">
       <div class="panel appear">
-        <div class="choose-lang">
-          <h3 class="title__choosing-lang">Choose language:</h3>
-          <div class="choosing-lang">
-            <input type="radio" class="language" name="language" value="EN" id="en" onchange="changeLangEn()">
-            <h4 class="lang-input-en">En</h4>
-            <input type="radio" class="language" name="language" value="RU" id="ru" onchange="changeLangRus()">
-            <h4>Rus</h4>
+        <div class="panel-right">
+          <div class="panel-right-text-content">
+            <p onclick="generalFunc()">General</p>
+            <p onclick="photosFunc()">Photos</p>
+            <p onclick="languageFunc()">Language</p>
+          </div>
+          <div class="account">
+            <p>Hello!</p>
           </div>
         </div>
-        <!-- <h2>kjhfkgjd</h2> -->
-        <div class="choose-api">
-          <h3 class="title__choosing-api">Choose image</h3>
-          <div class="choosing-api">
-            <input type="radio" name="api">
-            <h4>GitHub</h4>
-            <input type="radio" name="api">
-            <h4>API flickr</h4>
-            <input type="radio" name="api">
-            <h4>API</h4>
+        <div class="panel-left">
+          <div class="choose-lang none">
+            <p class="title__choosing-lang">Choose language:</p>
+            <div class="choosing-lang">
+              <label class="lang-input-en"><input type="radio" class="language option-input radio" name="language"
+                  value="EN" id="en" onchange="changeLangEn()">
+                English</label>
+              <label><input type="radio" class="language option-input radio" name="language" value="RU" id="ru"
+                  onchange="changeLangRus()">
+                Russian</label>
+            </div>
           </div>
-        </div>
-        <div class="visibility-panel">
-          <p><input type="checkbox" name="hide" onclick="changeVisibPlayer()">player</p>
-          <p><input type="checkbox" name="hide" onclick="changeVisibWeather()">weather</p>
-          <p><input type="checkbox" name="hide" onclick="changeVisibDate()">date</p>
-          <p><input type="checkbox" name="hide" onclick="changeVisibTime()">time</p>
-          <p><input type="checkbox" name="hide" onclick="changeVisibGreeting()">greeting</p>
-          <p><input type="checkbox" name="hide" onclick="changeVisibCitate()">citate</p>
+          <!-- <h2>kjhfkgjd</h2> -->
+          <div class="choose-api">
+            <p class="title__choosing-api">Choose image:</p>
+            <div class="choosing-api">
+              <label><input type="radio" class="option-input radio" id="git" name="api" onclick="typeGitHub()">
+                GitHub</label>
+              <label><input type="radio" class="option-input radio" name="api" onclick="typeApiFlick()">
+                API flickr</label>
+              <p class="type-api-flick none">Type the name</p><input class="input-api-flick none" type="text">
+              <button class="button-submit-apiFlick none" onclick="submitApiFlick()">Submit</button>
+              <div class="warning-api-flick none">Warning! This category doesn't exist!</div>
+              <label><input type="radio" class="option-input radio" name="api" onclick="typeApi()">
+                API</label>
+              <p class="type-api none">Type the name</p><input class="input-api none" type="text">
+              <button class="button-submit-api none" onclick="submitApi()">Submit</button>
+              <div class="warning-api none">Warning! This category doesn't exist!</div>
+            </div>
+          </div>
+          <div class="visibility-panel none">
+            <input type="checkbox" id="switch" /><label for="switch" class="check-box">Player</label>
+            <label class="checkboxplayer">player<input id="switch" type="checkbox" name="hide" onclick="changeVisibPlayer()"></label>
+            <p><input class="option-input checkbox" type="checkbox" name="hide" onclick="changeVisibWeather()">weather</p>
+            <p><input class="option-input checkbox" type="checkbox" name="hide" onclick="changeVisibDate()">date</p>
+            <p><input class="option-input checkbox" type="checkbox" name="hide" onclick="changeVisibTime()">time</p>
+            <p><input class="option-input checkbox" type="checkbox" name="hide" onclick="changeVisibGreeting()">greeting</p>
+            <p><input class="option-input checkbox" type="checkbox" name="hide" onclick="changeVisibCitate()">citate</p>
+          </div>
+
         </div>
       </div>
       <div class="settings">
@@ -140,7 +164,8 @@
       </div>
     </div>
   </footer>
-  <script src="js/script.js"></script>
+  <script type="module" src="js/script.js"></script>
+  <!-- <script type="module" src="js/dateShow.js"></script> -->
 </body>
 
 </html>
