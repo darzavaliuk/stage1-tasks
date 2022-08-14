@@ -137,20 +137,36 @@ export function playpauseTrack() {
 }
 
 function playTrack() {
-    curr_track.play();
-    // playingtrack = event.target.id;
-    isPlaying = true;
-    document.getElementById("player").classList.remove("play");
-    document.getElementById("player").classList.add("pause");
-    console.log("!!!" + track_index);
-    document.getElementById(track_index).classList.add("pause1");
-    document.getElementById(track_index).classList.remove("play1");
+    // const canvas = document.querySelector("header");
+    // canvas.addEventListener("mousedown", function (e) {
+    //     getCursorPosition(canvas, e);
+    // });
+
+    // function getCursorPosition(canvas, event) {
+    //     const rect = canvas.getBoundingClientRect();
+    //     const x = event.clientX - rect.left;
+    //     const y = event.clientY - rect.top;
+    //     console.log("x: " + x + " y: " + y);
+        curr_track.play();
+        // console.log(res);
+        // playingtrack = event.target.id;
+        isPlaying = true;
+        document.getElementById("player").classList.remove("play");
+        document.getElementById("player").classList.add("pause");
+        console.log("!!!" + track_index);
+        document.getElementById(track_index).classList.add("pause1");
+        document.getElementById(track_index).classList.remove("play1");
+    // }
+    // where.innerHTML = 'слева';
+
     // track_art.classList.add('rotate');
     // wave.classList.add('loader');
+    console.log(music_list[track_index].name)
     // playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
 }
 
 function pauseTrack() {
+    // where.innerHTML = "слева";
     curr_track.pause();
     // playingtrack = event.target.id;
     isPlaying = false;
@@ -159,6 +175,7 @@ function pauseTrack() {
     console.log("!!!" + track_index);
     document.getElementById(track_index).classList.add("play1");
     document.getElementById(track_index).classList.remove("pause1");
+
     // track_art.classList.remove('rotate');
     // wave.classList.remove('loader');
     // playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';

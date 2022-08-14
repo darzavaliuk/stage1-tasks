@@ -31,12 +31,30 @@ function getTimeOfDay(hours, lang) {
     else if (hours > 23 || hours < 6) return night[lang];
 }
 
-window.generalFunc = generalFunc
+window.clickTodo = clickTodo;
+
+function clickTodo() {
+    // console.log(document.querySelector('.todo-list').classList)
+    document.querySelector(".todo-list").classList.toggle("disappear");
+    document.querySelector(".todo-list").classList.toggle("apppear");
+}
+
+window.generalFunc = generalFunc;
+
+window.changeSettings = changeSettings;
+
+function changeSettings() {
+    document.getElementById("panel").classList.toggle("disappear");
+    generalFunc();
+}
 
 function generalFunc() {
     document.querySelector(".choose-api").classList.add("none");
     document.querySelector(".choose-lang").classList.add("none");
-    document.querySelector(".visibility-panel").classList.remove("none"); 
+    document.querySelector(".visibility-panel").classList.remove("none");
+    document.querySelector(".generalTitle").classList.add("api_chose");
+    document.querySelector(".photosTitle").classList.remove("api_chose");
+    document.querySelector(".languageTitle").classList.remove("api_chose");
 }
 
 window.photosFunc = photosFunc;
@@ -45,6 +63,9 @@ function photosFunc() {
     document.querySelector(".choose-api").classList.remove("none");
     document.querySelector(".choose-lang").classList.add("none");
     document.querySelector(".visibility-panel").classList.add("none");
+    document.querySelector(".generalTitle").classList.remove("api_chose");
+    document.querySelector(".photosTitle").classList.add("api_chose");
+    document.querySelector(".languageTitle").classList.remove("api_chose");
 }
 
 window.languageFunc = languageFunc;
@@ -53,6 +74,9 @@ function languageFunc() {
     document.querySelector(".choose-api").classList.add("none");
     document.querySelector(".choose-lang").classList.remove("none");
     document.querySelector(".visibility-panel").classList.add("none");
+    document.querySelector(".generalTitle").classList.remove("api_chose");
+    document.querySelector(".photosTitle").classList.remove("api_chose");
+    document.querySelector(".languageTitle").classList.add("api_chose");
 }
 
 window.typeApi = typeApi;
@@ -63,7 +87,7 @@ function typeApi() {
     document.querySelector(".type-api-flick").classList.add("none");
     document.querySelector(".input-api-flick").classList.add("none");
     document.querySelector(".button-submit-api").classList.remove("none");
-    document.querySelector(".button-submit-apiFlick").classList.add("none");
+    document.querySelector(".button-submit-api-flick").classList.add("none");
     backGroundForm = "api";
 }
 
@@ -75,7 +99,7 @@ function typeGitHub() {
     document.querySelector(".type-api-flick").classList.add("none");
     document.querySelector(".input-api-flick").classList.add("none");
     document.querySelector(".button-submit-api").classList.add("none");
-    document.querySelector(".button-submit-apiFlick").classList.add("none");
+    document.querySelector(".button-submit-api-flick").classList.add("none");
     backGroundForm = "git";
     setBg(bgNum);
 }
@@ -88,7 +112,7 @@ function typeApiFlick() {
     document.querySelector(".type-api").classList.add("none");
     document.querySelector(".input-api").classList.add("none");
     document.querySelector(".button-submit-api").classList.add("none");
-    document.querySelector(".button-submit-apiFlick").classList.remove("none");
+    document.querySelector(".button-submit-api-flick").classList.remove("none");
     backGroundForm = "apiFlick";
 }
 
@@ -96,21 +120,54 @@ import showGreeting from "./greetingShow.js";
 
 showGreeting();
 
-document.getElementById('git').checked = true
+document.getElementById("git").checked = true;
 
 let langRUN = document.querySelector(".language");
 document.getElementById("en").checked = true;
 console.log(langRUN.value);
 
+// console.log(document.getElementById("switch").checked)
+
+// localStorage.clear()
+
 function setLocalStorage() {
     const name = document.querySelector(".name");
     let city = document.querySelector(".city");
+    let switc = [];
+    switc[0] = document.getElementById("switch").checked;
+    for (let i = 1; i < 6; i++) {
+        switc[i] = document.getElementById(`switch${i}`).checked;
+    }
+    console.log(switc);
+    let photos = document.querySelector('input[name="api"]:checked').id;
+    console.log(photos);
+    let input;
+    if (photos.includes("api")) {
+        input = document.querySelector(`.input-${photos}`).value;
+    } 
+    console.log(input)
+    debugger; 
     localStorage.setItem("name", name.value);
     localStorage.setItem("city", city.value);
     localStorage.setItem("lang", lang);
-}
+    localStorage.setItem("switc", switc);
+    localStorage.setItem("photos", photos);
+    localStorage.setItem("input", input)
+} 
+
+// let  r = (document.querySelector('input[name="api"]:checked'))
+// console.log(r.id)
+
+// let swtc = [];
+// swtc[0] = document.getElementById("switch").checked;
+// for (let i = 1; i < 6; i++) {
+//     swtc[i] = document.getElementById(`switch${i}`).checked;
+// }
+// console.log(swtc)
 
 window.addEventListener("beforeunload", setLocalStorage);
+
+// localStorage.clear()
 
 function getLocalStorage() {
     const name = document.querySelector(".name");
@@ -134,16 +191,51 @@ function getLocalStorage() {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=cae18c1295bbc4a9cbbc5b3b676c530b&units=metric`;
         getWeather(url);
     }
+    console.log(localStorage.getItem("switc"));
+    if (localStorage.getItem("switc")) {
+        let switc = localStorage.getItem("switc").split(",");
+        console.log(switc);
+        document.getElementById("switch").checked = JSON.parse(switc[0]);
+        if (JSON.parse(switc[0])) {
+            document.getElementById(`switch`).onclick();
+        }
+        for (let i = 1; i < 6; i++) {
+            document.getElementById(`switch${i}`).checked = JSON.parse(
+                switc[i]
+            );
+            if (JSON.parse(switc[i])) {
+                document.getElementById(`switch${i}`).onclick();
+            }
+        }
+    }
+    if (localStorage.getItem("photos")) {
+        let photos = (localStorage.getItem("photos"));
+        console.log(photos)
+        document.getElementById(localStorage.getItem("photos")).checked = true;
+        document.getElementById(localStorage.getItem("photos")).onclick();
+        if (localStorage.getItem("input") != 'undefined') {
+            document.querySelector(`.input-${photos}`).value = localStorage.getItem("input")
+            document.querySelector(`.button-submit-${photos}`).onclick()
+        }
+    }
 }
 
 window.addEventListener("load", getLocalStorage);
 
 import getRandomNum from "./randomNumGet.js";
 
+window.changeVisibPlayer = changeVisibPlayer;
+
 function changeVisibPlayer() {
     document.querySelector(".player").classList.toggle("hide");
     document.querySelector(".player").classList.toggle("appear");
 }
+
+window.changeVisibCitate = changeVisibCitate;
+window.changeVisibDate = changeVisibDate;
+window.changeVisibGreeting = changeVisibGreeting;
+window.changeVisibTime = changeVisibTime;
+window.changeVisibWeather = changeVisibWeather;
 
 function changeVisibTime() {
     document.querySelector(".time").classList.toggle("hide");
@@ -256,16 +348,12 @@ async function getLinkToImageAPI() {
         const data = await res.json();
         console.log(data.urls.regular);
         document.querySelector(".warning-api").classList.add("none");
-        document
-            .querySelector(".input-api")
-            .classList.remove("warning-input");
+        document.querySelector(".input-api").classList.remove("warning-input");
         // tagApiFlick = tagApiFlickNew;
-        tagApi = tagApiNew
+        tagApi = tagApiNew;
         return await data.urls.regular;
     } catch (e) {
-        document
-            .querySelector(".input-api")
-            .classList.add("warning-input");
+        document.querySelector(".input-api").classList.add("warning-input");
         document.querySelector(".warning-api").classList.remove("none");
     }
 }
@@ -358,6 +446,26 @@ function changeLangRus() {
     document.querySelector(".title__choosing-lang").innerText =
         "Выберите язык:";
     let langRUN = document.querySelector(".language");
+    document.querySelector(".generalTitle").innerText = "Общие";
+    document.querySelector(".photosTitle").innerText = "Фотографии";
+    document.querySelector(".languageTitle").innerText = "Язык";
+    document.querySelector(".title__choosing-api").innerText = "Выберите фото:";
+    document.querySelector(".visibility__title").innerText =
+        "Выберите элементы для скрытия:";
+    document.getElementById("switch_content").textContent = "Плеер";
+    document.getElementById("switch1_content").textContent = "Погода";
+    document.getElementById("switch2_content").textContent = "Дата";
+    document.getElementById("switch3_content").textContent = "Время";
+    document.getElementById("switch4_content").textContent = "Приветствие";
+    document.getElementById("switch5_content").textContent = "Цитата";
+    document.getElementById("ru_text").innerText = "Русский";
+    document.getElementById("en_text").innerText = "Английский";
+    document.getElementById("all").innerText = "Все";
+    document.getElementById("pending").innerText = "В работе";
+    document.getElementById("completed").innerText = "Завершенные";
+    document.querySelector(".clear-btn").innerText = "Очистить все";
+    document.getElementById("input-text__plc").placeholder =
+        "Добавьте новую задачу";
     // document.getElementById('en').checked = true
     console.log(lang);
 }
@@ -375,6 +483,25 @@ function changeLangEn() {
     document.querySelector(".title__choosing-lang").innerText =
         "Choose language:";
     let langRUN = document.querySelector(".language");
+    document.querySelector(".generalTitle").innerText = "General";
+    document.querySelector(".photosTitle").innerText = "Photos";
+    document.querySelector(".languageTitle").innerText = "Language";
+    document.querySelector(".title__choosing-api").innerText = "Choose image:";
+    document.querySelector(".visibility__title").innerText =
+        "Choose to turn off elements:";
+    document.getElementById("switch_content").textContent = "Player";
+    document.getElementById("switch1_content").textContent = "Weather";
+    document.getElementById("switch2_content").textContent = "Date";
+    document.getElementById("switch3_content").textContent = "Time";
+    document.getElementById("switch4_content").textContent = "Greeting";
+    document.getElementById("switch5_content").textContent = "Quote";
+    document.getElementById("ru_text").innerText = "Russian";
+    document.getElementById("en_text").innerText = "English";
+    document.getElementById("all").innerText = "All";
+    document.getElementById("pending").innerText = "Pending";
+    document.getElementById("completed").innerText = "Completed";
+    document.querySelector(".clear-btn").innerText = "Clear All";
+    document.getElementById("input-text__plc").placeholder = "Add a new task";
     // document.getElementById('en').checked = true
     console.log(lang);
 }

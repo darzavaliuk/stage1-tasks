@@ -82,12 +82,12 @@
   </main>
   <footer class="footer">
     <div class="settings-1">
-      <div class="panel appear">
+      <div class="panel disappear" id="panel">
         <div class="panel-right">
           <div class="panel-right-text-content">
-            <p onclick="generalFunc()">General</p>
-            <p onclick="photosFunc()">Photos</p>
-            <p onclick="languageFunc()">Language</p>
+            <p class="generalTitle api_chose" onclick="generalFunc()">General</p>
+            <p class="photosTitle" onclick="photosFunc()">Photos</p>
+            <p class="languageTitle" onclick="languageFunc()">Language</p>
           </div>
           <div class="account">
             <p>Hello!</p>
@@ -98,44 +98,51 @@
             <p class="title__choosing-lang">Choose language:</p>
             <div class="choosing-lang">
               <label class="lang-input-en"><input type="radio" class="language option-input radio" name="language"
-                  value="EN" id="en" onchange="changeLangEn()">
-                English</label>
+                  value="EN" id="en" onchange="changeLangEn()"><span id="en_text">
+                English</span></label>
               <label><input type="radio" class="language option-input radio" name="language" value="RU" id="ru"
-                  onchange="changeLangRus()">
-                Russian</label>
+                  onchange="changeLangRus()"><span id="ru_text">
+                Russian</span></label>
             </div>
           </div>
           <!-- <h2>kjhfkgjd</h2> -->
-          <div class="choose-api">
+          <div class="choose-api none">
             <p class="title__choosing-api">Choose image:</p>
             <div class="choosing-api">
-              <label><input type="radio" class="option-input radio" id="git" name="api" onclick="typeGitHub()">
+              <label class="github_label"><input type="radio" class="option-input radio" id="git" name="api" onclick="typeGitHub()">
                 GitHub</label>
-              <label><input type="radio" class="option-input radio" name="api" onclick="typeApiFlick()">
+              <label class="api_label"><input type="radio" class="option-input radio" name="api" id="api-flick" onclick="typeApiFlick()">
                 API flickr</label>
               <p class="type-api-flick none">Type the name</p><input class="input-api-flick none" type="text">
-              <button class="button-submit-apiFlick none" onclick="submitApiFlick()">Submit</button>
+              <button class="button-submit-api-flick none" onclick="submitApiFlick()">Submit</button>
               <div class="warning-api-flick none">Warning! This category doesn't exist!</div>
-              <label><input type="radio" class="option-input radio" name="api" onclick="typeApi()">
+              <label class="api_label"><input type="radio" class="option-input radio" name="api" id="api" onclick="typeApi()">
                 API</label>
               <p class="type-api none">Type the name</p><input class="input-api none" type="text">
               <button class="button-submit-api none" onclick="submitApi()">Submit</button>
               <div class="warning-api none">Warning! This category doesn't exist!</div>
-            </div>
+            </div> 
           </div>
           <div class="visibility-panel none">
-            <input type="checkbox" id="switch" /><label for="switch" class="check-box">Player</label>
-            <label class="checkboxplayer">player<input id="switch" type="checkbox" name="hide" onclick="changeVisibPlayer()"></label>
-            <p><input class="option-input checkbox" type="checkbox" name="hide" onclick="changeVisibWeather()">weather</p>
-            <p><input class="option-input checkbox" type="checkbox" name="hide" onclick="changeVisibDate()">date</p>
-            <p><input class="option-input checkbox" type="checkbox" name="hide" onclick="changeVisibTime()">time</p>
-            <p><input class="option-input checkbox" type="checkbox" name="hide" onclick="changeVisibGreeting()">greeting</p>
-            <p><input class="option-input checkbox" type="checkbox" name="hide" onclick="changeVisibCitate()">citate</p>
+            <p class="visibility__title">Choose to turn off elements:</p>
+            <p class="visib"><span id="switch_content">Player</span><input type="checkbox" id="switch" name="hide" onclick="changeVisibPlayer()" /><label
+                for="switch" class="check-box"></label></p>
+            <!-- <label class="checkboxplayer">player<input id="switch" type="checkbox" name="hide" onclick="changeVisibPlayer()"></label> -->
+            <p class="visib"><span id="switch1_content">Weather</span><input class="checkbox" id="switch2" type="checkbox" name="hide"
+                onclick="changeVisibWeather()"><label for="switch2" class="check-box">Weather</label></p>
+            <p class="visib"><span id="switch2_content">Date</span><input class="checkbox" id="switch1" type="checkbox" name="hide"
+                onclick="changeVisibDate()"><label for="switch1" class="check-box">Weather</label></p>
+            <p class="visib"><span id="switch3_content">Time</span><input class="option-input checkbox" id="switch3" type="checkbox" name="hide"
+                onclick="changeVisibTime()"><label for="switch3" class="check-box">Weather</label></p>
+            <p class="visib"><span id="switch4_content">Greeting</span><input class="option-input checkbox" id="switch4" type="checkbox" name="hide"
+                onclick="changeVisibGreeting()"><label for="switch4" class="check-box">Weather</label></p>
+            <p class="visib"><span id="switch5_content">Quote</span><input class="option-input checkbox" type="checkbox" id="switch5" name="hide"
+                onclick="changeVisibCitate()"><label for="switch5" class="check-box">Weather</label></p>
           </div>
 
         </div>
       </div>
-      <div class="settings">
+      <div class="settings" onclick="changeSettings()">
 
       </div>
     </div>
@@ -146,21 +153,25 @@
         <div class="author"></div>
       </div>
     </div>
-    <div class="todo-list">
-      <div class="wrapper">
-        <div class="task-input">
-          <img src="bars-icon.svg" alt="icon">
-          <input type="text" placeholder="Add a new task">
-        </div>
-        <div class="controls">
-          <div class="filters">
-            <span class="activ" id="all">All</span>
-            <span id="pending">Pending</span>
-            <span id="completed">Completed</span>
+    <div class="todo__class">
+      <div class="button-todo" onclick="clickTodo()">Todo</div>
+      <div class="todo-list disappear">
+        <div class="wrapper" id="wrapper">
+          <div class="else"></div>
+          <div class="task-input">
+            <img src="bars-icon.svg" alt="icon">
+            <input id="input-text__plc" type="text" placeholder="Add a new task">
           </div>
-          <button class="clear-btn">Clear All</button>
+          <div class="controls">
+            <div class="filters">
+              <span class="activ" id="all">All</span>
+              <span id="pending">Pending</span>
+              <span id="completed">Completed</span>
+            </div>
+            <button class="clear-btn">Clear All</button>
+          </div>
+          <ul class="task-box"></ul>
         </div>
-        <ul class="task-box"></ul>
       </div>
     </div>
   </footer>

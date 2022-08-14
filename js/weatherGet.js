@@ -21,13 +21,13 @@ export default async function getWeather(url) {
         );
         weatherIcon.style.visibility = "visible";
         weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-        temperature.textContent = `${data.main.temp}°C`;
+        temperature.textContent = `${Math.round(data.main.temp)}°C`;
         weatherDescription.textContent = data.weather[0].description;
-        wind.textContent = windSpeed[lang] + data.wind.speed + speed[lang];
-        humidity.textContent = humidityLang[lang] + data.main.humidity + "%";
+        wind.textContent = windSpeed[lang] + Math.round(data.wind.speed) + speed[lang];
+        humidity.textContent = humidityLang[lang] + Math.round(data.main.humidity) + "%";
     } catch (e) {
         weatherIcon.style.visibility = "hidden";
-        temperature.textContent = "Doesn`t exist";
+        temperature.textContent = "Doesn't exist";
         weatherDescription.textContent = "";
         wind.textContent = "";
         humidity.textContent = "";
