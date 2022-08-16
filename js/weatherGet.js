@@ -14,11 +14,11 @@ export default async function getWeather(url) {
         const res = await fetch(url);
         const data = await res.json();
         // console.log(data.message)
-        console.log(
-            data.weather[0].id,
-            data.weather[0].description,
-            data.main.temp
-        );
+        // console.log(
+        //     data.weather[0].id,
+        //     data.weather[0].description,
+        //     data.main.temp
+        // );
         weatherIcon.style.visibility = "visible";
         weatherIcon.classList.add(`owf-${data.weather[0].id}`);
         temperature.textContent = `${Math.round(data.main.temp)}°C`;

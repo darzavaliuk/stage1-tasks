@@ -7,7 +7,7 @@ showTime();
 
 import showDate from "./dateShow.js";
 
-console.log(showDate);
+// console.log(showDate);
 
 showDate();
 
@@ -150,7 +150,7 @@ document.getElementById("git").checked = true;
 
 let langRUN = document.querySelector(".language");
 document.getElementById("en").checked = true;
-console.log(langRUN.value);
+// console.log(langRUN.value);
 
 // console.log(document.getElementById("switch").checked)
 
@@ -164,15 +164,15 @@ function setLocalStorage() {
     for (let i = 1; i < 6; i++) {
         switc[i] = document.getElementById(`switch${i}`).checked;
     }
-    console.log(switc);
+    // console.log(switc);
     let photos = document.querySelector('input[name="api"]:checked').id;
-    console.log(photos);
+    // console.log(photos);
     let input;
     if (photos.includes("api")) {
         input = document.querySelector(`.input-${photos}`).value;
     }
-    console.log(input);
-    debugger;
+    // console.log(input);
+    ;
     localStorage.setItem("name", name.value);
     localStorage.setItem("city", city.value);
     localStorage.setItem("lang", lang);
@@ -217,10 +217,10 @@ function getLocalStorage() {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=cae18c1295bbc4a9cbbc5b3b676c530b&units=metric`;
         getWeather(url);
     }
-    console.log(localStorage.getItem("switc"));
+    // console.log(localStorage.getItem("switc"));
     if (localStorage.getItem("switc")) {
         let switc = localStorage.getItem("switc").split(",");
-        console.log(switc);
+        // console.log(switc);
         document.getElementById("switch").checked = JSON.parse(switc[0]);
         if (JSON.parse(switc[0])) {
             document.getElementById(`switch`).onclick();
@@ -237,7 +237,7 @@ function getLocalStorage() {
     if (localStorage.getItem("photos")) {
         backGroundForm = localStorage.getItem("photos");
         let photos = localStorage.getItem("photos");
-        console.log(photos);
+        // console.log(photos);
         document.getElementById(localStorage.getItem("photos")).checked = true;
         // setBg(bgNum)
         document.getElementById(localStorage.getItem("photos")).onclick();
@@ -319,14 +319,14 @@ async function getLinkToImage() {
         else {
             url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=87a9b11236cba2acb7861c36f7ab39bb&tags=nature&extras=url_l&format=json&nojsoncallback=1`;
         }
-        console.log(url);
-        console.log(tagApiFlickNew);
-        console.log(bgNum);
+        // console.log(url);
+        // console.log(tagApiFlickNew);
+        // console.log(bgNum);
         const res = await fetch(url);
         const data = await res.json();
         let r = parseInt(bgNum);
-        console.log(r);
-        console.log(data.photos.photo[r].url_l);
+        // console.log(r);
+        // console.log(data.photos.photo[r].url_l);
         document.querySelector(".warning-api-flick").classList.add("none");
         document
             .querySelector(".input-api-flick")
@@ -346,8 +346,8 @@ document
     .addEventListener("keydown", function (e) {
         if (e.keyCode == 13) {
             tagApiFlickNew = document.querySelector(".input-api-flick").value;
-            console.log(tagApiFlickNew);
-            console.log(bgNum);
+            // console.log(tagApiFlickNew);
+            // console.log(bgNum);
             setBg();
         }
     });
@@ -355,8 +355,8 @@ document
 document.querySelector(".input-api").addEventListener("keydown", function (e) {
     if (e.keyCode == 13) {
         tagApiNew = document.querySelector(".input-api").value;
-        console.log(tagApiNew);
-        console.log(bgNum);
+        // console.log(tagApiNew);
+        // console.log(bgNum);
         setBg();
     }
 });
@@ -365,19 +365,19 @@ window.submitApiFlick = submitApiFlick;
 
 function submitApiFlick() {
     tagApiFlickNew = document.querySelector(".input-api-flick").value;
-    console.log(tagApiFlickNew);
-    debugger;
-    console.log(bgNum);
+    // console.log(tagApiFlickNew);
+    ;
+    // console.log(bgNum);
     setBg();
-    debugger;
+    ;
 }
 
 window.submitApi = submitApi;
 
 function submitApi() {
     tagApiNew = document.querySelector(".input-api").value;
-    console.log(tagApiNew);
-    console.log(bgNum);
+    // console.log(tagApiNew);
+    // console.log(bgNum);
     setBg();
 }
 
@@ -391,11 +391,11 @@ async function getLinkToImageAPI() {
         else {
             url = `https://api.unsplash.com/photos/random?query=nature&client_id=PRWJMhoVxzNIMuMmp66jb7wKtFtV1kfdTNPLRfLlEC4`
         }
-        console.log(url);
+        // console.log(url);
         // console.log(tagApiFlickNew)
         const res = await fetch(url);
         const data = await res.json();
-        console.log(data.urls.regular);
+        // console.log(data.urls.regular);
         document.querySelector(".warning-api").classList.add("none");
         document.querySelector(".input-api").classList.remove("warning-input");
         // tagApiFlick = tagApiFlickNew;
@@ -516,7 +516,10 @@ function changeLangRus() {
     document.getElementById("input-text__plc").placeholder =
         "Добавьте новую задачу";
     // document.getElementById('en').checked = true
-    console.log(lang);
+    // console.log(lang);
+    if (city.value == 'Minsk') {
+        city.value = cityLang[lang]
+    }
 }
 
 window.changeLangEn = changeLangEn;
@@ -552,7 +555,10 @@ function changeLangEn() {
     document.querySelector(".clear-btn").innerText = "Clear All";
     document.getElementById("input-text__plc").placeholder = "Add a new task";
     // document.getElementById('en').checked = true
-    console.log(lang);
+    // console.log(lang);
+    if (city.value == 'Минск') {
+        city.value = cityLang[lang]
+    }
 }
 
 import {} from "./todoList.js";
