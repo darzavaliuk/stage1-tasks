@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <link rel="stylesheet" href="css/owfont-regular.css" />
+  <!-- <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"> -->
+  <link rel="stylesheet" href="css/style.css" />
+  <title>momentum</title>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="player appear">
+      <div class="details">
+        <!-- <div class="now-playing">PLAYING x OF y</div> -->
+        <div class="track-art"></div>
+        <div class="track-name">Track Name</div>
+        <!-- <div class="track-artist">Track Artist</div> -->
+      </div>
+      <div class="slider_container">
+        <div class="current-time">00:00</div>
+        <input type="range" min="1" max="100" value="0" class="seek_slider" oninput="seekTo()">
+        <div class="total-duration">00:00</div>
+      </div>
+
+      <div class="slider_container vol">
+        <i class="fa fa-volume-down" onclick="turnOffSound()"></i>
+        <input type="range" min="1" max="100" value="99" class="volume_slider" oninput="setVolume()"
+          onchange="setVolume()">
+
+      </div>
+      <div class="player-controls">
+        <button class="play-prev player-icon" onclick="prevTrack()"></button>
+        <button id="player" class="play player-icon" onclick="playpauseTrack()"></button>
+        <button class="play-next player-icon" onclick="nextTrack()"></button>
+      </div>
+      <ul class="play-list">
+        <div id="trackbox"></div>
+        <!-- <li>
+          <div class="list-1">
+            <button id="player" class="play player-icon" onclick="playpauseTrack()"></button>
+            <p>River</p>
+          </div>
+        </li>
+        <li>
+          <div class="list-1">
+            <button id="player" class="play player-icon" onclick="playpauseTrack()"></button>
+            <p>River</p>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+    <div class="weather appear">
+      <input type="text" class="city" />
+      <i class="weather-icon owf"></i>
+      <div class="weather-error"></div>
+      <div class="description-container">
+        <span class="temperature"></span>
+        <span class="weather-description"></span>
+      </div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button class="slide-prev slider-icon"></button>
+      <button class="slide-next slider-icon"></button>
+    </div>
+    <time class="time appear"></time>
+    <date class="date appear"></date>
+    <div class="greeting-container appear">
+      <span class="greeting"></span>
+      <input id="idName" type="text" class="name" />
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="settings-1">
+      <div class="panel disappear none" id="panel">
+        <div class="panel-right">
+          <div class="panel-right-text-content">
+            <p class="generalTitle api_chose" onclick="generalFunc()">General</p>
+            <p class="photosTitle" onclick="photosFunc()">Photos</p>
+            <p class="languageTitle" onclick="languageFunc()">Language</p>
+          </div>
+          <div class="account">
+            <!-- <p>Hello!</p> -->
+          </div>
+        </div>
+        <div class="panel-left">
+          <div class="choose-lang none">
+            <p class="title__choosing-lang">Choose language:</p>
+            <div class="choosing-lang">
+              <label class="lang-input-en"><input type="radio" class="language option-input radio" name="language"
+                  value="EN" id="en" onchange="changeLangEn()"><span id="en_text">
+                English</span></label>
+              <label><input type="radio" class="language option-input radio" name="language" value="RU" id="ru"
+                  onchange="changeLangRus()"><span id="ru_text">
+                Russian</span></label>
+            </div>
+          </div>
+          <!-- <h2>kjhfkgjd</h2> -->
+          <div class="choose-api none">
+            <p class="title__choosing-api">Choose image:</p>
+            <div class="choosing-api">
+              <label class="github_label"><input type="radio" class="option-input radio" id="git" name="api" onclick="typeGitHub()">
+                GitHub</label>
+              <label class="api_label"><input type="radio" class="option-input radio" name="api" id="api-flick" onclick="typeApiFlick()">
+                API flickr</label>
+              <p class="type-api-flick none">Type the name</p><input class="input-api-flick none" type="text">
+              <button class="button-submit-api-flick none" onclick="submitApiFlick()">Submit</button>
+              <div class="warning-api-flick none">Warning! This category doesn't exist!</div>
+              <label class="api_label"><input type="radio" class="option-input radio" name="api" id="api" onclick="typeApi()">
+                API</label>
+              <p class="type-api none">Type the name</p><input class="input-api none" type="text">
+              <button class="button-submit-api none" onclick="submitApi()">Submit</button>
+              <div class="warning-api none">Warning! This category doesn't exist!</div>
+            </div> 
+          </div>
+          <div class="visibility-panel none">
+            <p class="visibility__title">Choose to turn off elements:</p>
+            <p class="visib"><span id="switch_content">Player</span><input type="checkbox" id="switch" name="hide" onclick="changeVisibPlayer()" /><label
+                for="switch" class="check-box"></label></p>
+            <!-- <label class="checkboxplayer">player<input id="switch" type="checkbox" name="hide" onclick="changeVisibPlayer()"></label> -->
+            <p class="visib"><span id="switch1_content">Weather</span><input class="checkbox" id="switch2" type="checkbox" name="hide"
+                onclick="changeVisibWeather()"><label for="switch2" class="check-box">Weather</label></p>
+            <p class="visib"><span id="switch2_content">Date</span><input class="checkbox" id="switch1" type="checkbox" name="hide"
+                onclick="changeVisibDate()"><label for="switch1" class="check-box">Weather</label></p>
+            <p class="visib"><span id="switch3_content">Time</span><input class="option-input checkbox" id="switch3" type="checkbox" name="hide"
+                onclick="changeVisibTime()"><label for="switch3" class="check-box">Weather</label></p>
+            <p class="visib"><span id="switch4_content">Greeting</span><input class="option-input checkbox" id="switch4" type="checkbox" name="hide"
+                onclick="changeVisibGreeting()"><label for="switch4" class="check-box">Weather</label></p>
+            <p class="visib"><span id="switch5_content">Quote</span><input class="option-input checkbox" type="checkbox" id="switch5" name="hide"
+                onclick="changeVisibCitate()"><label for="switch5" class="check-box">Weather</label></p>
+          </div>
+
+        </div>
+      </div>
+      <div class="settings" onclick="changeSettings()">
+
+      </div>
+    </div>
+    <div class="change__quote appear">
+      <button class="change-quote"></button>
+      <div>
+        <div class="quote"></div>
+        <div class="author"></div>
+      </div>
+    </div>
+    <div class="todo__class">
+      <div class="button-todo" onclick="clickTodo()">Todo</div>
+      <div class="todo-list disappear">
+        <div class="wrapper" id="wrapper">
+          <div class="else"></div>
+          <div class="task-input">
+            <img src="bars-icon.svg" alt="icon">
+            <input id="input-text__plc" type="text" placeholder="Add a new task">
+          </div>
+          <div class="controls">
+            <div class="filters">
+              <span class="activ" id="all">All</span>
+              <span id="pending">Pending</span>
+              <span id="completed">Completed</span>
+            </div>
+            <button class="clear-btn">Clear All</button>
+          </div>
+          <ul class="task-box"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="logo-div">
+      <img src="./assets/svg/logo_rs2.svg" alt="school" class="logo" onclick="clickRsShool()">
+      <!-- <p class="logo__title">© 2022</p> -->
+      <img src="./assets/svg/github-icon.svg" alt="" class="git_photo" onclick="clickGitIcon()">
+    </div>
+    <div class="year">
+      <p class="logo__title">© 2022</p>
+    </div>
+  </footer>
+  <script type="module" src="js/script.js"></script>
+  <!-- <script type="module" src="js/dateShow.js"></script> -->
+</body>
+
+</html>
