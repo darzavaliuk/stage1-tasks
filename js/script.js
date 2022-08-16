@@ -38,11 +38,24 @@ function clickTodo() {
     // console.log(document.querySelector('.todo-list').classList)
     document.querySelector(".todo-list").classList.toggle("disappear");
     document.querySelector(".todo-list").classList.toggle("apppear");
+    document.querySelector('.change__quote').classList.toggle('addZIndex')
     setTimeout(200, func1)
 }
 
 function func1() {
     document.querySelector(".todo-list").classList.toggle("none");
+}
+
+window.clickRsShool = clickRsShool
+
+function clickRsShool() {
+    window.open('https://rs.school/js/')
+}
+
+window.clickGitIcon = clickGitIcon
+
+function clickGitIcon() {
+    window.open('https://github.com/darzavaliuk')
 }
 
 window.generalFunc = generalFunc;
@@ -52,6 +65,7 @@ window.changeSettings = changeSettings;
 function changeSettings() {
     // clickTodo()
     document.getElementById("panel").classList.toggle("disappear");
+    document.querySelector('.change__quote').classList.toggle('addZIndex')
     setTimeout(func, 200)
     generalFunc();
 }
