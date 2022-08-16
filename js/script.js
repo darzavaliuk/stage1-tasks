@@ -55,7 +55,7 @@ function clickRsShool() {
 window.clickGitIcon = clickGitIcon
 
 function clickGitIcon() {
-    window.open('https://github.com/darzavaliuk')
+    window.open('https://github.com/darzavaliuk')//
 }
 
 window.generalFunc = generalFunc;
