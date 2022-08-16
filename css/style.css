@@ -249,7 +249,7 @@ body {
 }
 
 .trackname {
-  opacity: 0.8;
+  opacity: 0.75;
   padding-top: 3px;
 }
 
@@ -273,7 +273,7 @@ body {
 }
 
 .play1 {
-  width: 23px;
+  width: 23px;opacity: 0.7;
   height: 23px;
   background-size: 23px 23px;
   background-image: url("../assets/svg/play.svg");
@@ -900,6 +900,7 @@ label:active:after {
 .pause1 {
   background-image: url("../assets/svg/pause.svg");
   opacity: 1;
+  color: whitesmoke;
 }
 
 .play-prev {
