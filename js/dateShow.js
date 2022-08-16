@@ -9,5 +9,5 @@ export default function showDate() {
     };
     const currentDate = date.toLocaleDateString(`${lang}-Br`, options);
     dat.textContent = currentDate;
-    setTimeout(showDate, 10);
+    setTimeout(showDate, 1000);
 }

@@ -34,9 +34,15 @@ function getTimeOfDay(hours, lang) {
 window.clickTodo = clickTodo;
 
 function clickTodo() {
+    // changeSettings()
     // console.log(document.querySelector('.todo-list').classList)
     document.querySelector(".todo-list").classList.toggle("disappear");
     document.querySelector(".todo-list").classList.toggle("apppear");
+    setTimeout(200, func1)
+}
+
+function func1() {
+    document.querySelector(".todo-list").classList.toggle("none");
 }
 
 window.generalFunc = generalFunc;
@@ -44,8 +50,14 @@ window.generalFunc = generalFunc;
 window.changeSettings = changeSettings;
 
 function changeSettings() {
+    // clickTodo()
     document.getElementById("panel").classList.toggle("disappear");
+    setTimeout(func, 200)
     generalFunc();
+}
+
+function func() {
+    document.getElementById("panel").classList.toggle("none");
 }
 
 function generalFunc() {
@@ -113,7 +125,7 @@ function typeApiFlick() {
     document.querySelector(".input-api").classList.add("none");
     document.querySelector(".button-submit-api").classList.add("none");
     document.querySelector(".button-submit-api-flick").classList.remove("none");
-    backGroundForm = "apiFlick";
+    backGroundForm = "api-flick";
 }
 
 import showGreeting from "./greetingShow.js";
@@ -144,16 +156,16 @@ function setLocalStorage() {
     let input;
     if (photos.includes("api")) {
         input = document.querySelector(`.input-${photos}`).value;
-    } 
-    console.log(input)
-    debugger; 
+    }
+    console.log(input);
+    debugger;
     localStorage.setItem("name", name.value);
     localStorage.setItem("city", city.value);
     localStorage.setItem("lang", lang);
     localStorage.setItem("switc", switc);
     localStorage.setItem("photos", photos);
-    localStorage.setItem("input", input)
-} 
+    localStorage.setItem("input", input);
+}
 
 // let  r = (document.querySelector('input[name="api"]:checked'))
 // console.log(r.id)
@@ -209,14 +221,19 @@ function getLocalStorage() {
         }
     }
     if (localStorage.getItem("photos")) {
-        let photos = (localStorage.getItem("photos"));
-        console.log(photos)
+        backGroundForm = localStorage.getItem("photos");
+        let photos = localStorage.getItem("photos");
+        console.log(photos);
         document.getElementById(localStorage.getItem("photos")).checked = true;
+        // setBg(bgNum)
         document.getElementById(localStorage.getItem("photos")).onclick();
-        if (localStorage.getItem("input") != 'undefined') {
-            document.querySelector(`.input-${photos}`).value = localStorage.getItem("input")
-            document.querySelector(`.button-submit-${photos}`).onclick()
+        if (localStorage.getItem("input") != "undefined") {
+            document.querySelector(`.input-${photos}`).value =
+                localStorage.getItem("input");
+            document.querySelector(`.button-submit-${photos}`).onclick();
         }
+    } else {
+        setBg(bgNum);
     }
 }
 
@@ -282,18 +299,26 @@ let tagApiNew = "";
 
 async function getLinkToImage() {
     try {
-        const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=87a9b11236cba2acb7861c36f7ab39bb&tags=${tagApiFlickNew}&extras=url_l&format=json&nojsoncallback=1`;
+        let url;
+        if (tagApiFlickNew != "")
+            url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=87a9b11236cba2acb7861c36f7ab39bb&tags=${tagApiFlickNew}&extras=url_l&format=json&nojsoncallback=1`;
+        else {
+            url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=87a9b11236cba2acb7861c36f7ab39bb&tags=nature&extras=url_l&format=json&nojsoncallback=1`;
+        }
         console.log(url);
+        console.log(tagApiFlickNew);
+        console.log(bgNum);
         const res = await fetch(url);
         const data = await res.json();
-        getRandomNum();
-        console.log(data.photos.photo[bgNum].url_l);
+        let r = parseInt(bgNum);
+        console.log(r);
+        console.log(data.photos.photo[r].url_l);
         document.querySelector(".warning-api-flick").classList.add("none");
         document
             .querySelector(".input-api-flick")
             .classList.remove("warning-input");
         tagApiFlick = tagApiFlickNew;
-        return await data.photos.photo[bgNum].url_l;
+        return await data.photos.photo[r].url_l;
     } catch (e) {
         document
             .querySelector(".input-api-flick")
@@ -315,8 +340,8 @@ document
 
 document.querySelector(".input-api").addEventListener("keydown", function (e) {
     if (e.keyCode == 13) {
-        tagApiFlickNew = document.querySelector(".input-api").value;
-        console.log(tagApiFlickNew);
+        tagApiNew = document.querySelector(".input-api").value;
+        console.log(tagApiNew);
         console.log(bgNum);
         setBg();
     }
@@ -327,23 +352,33 @@ window.submitApiFlick = submitApiFlick;
 function submitApiFlick() {
     tagApiFlickNew = document.querySelector(".input-api-flick").value;
     console.log(tagApiFlickNew);
+    debugger;
     console.log(bgNum);
     setBg();
+    debugger;
 }
 
 window.submitApi = submitApi;
 
 function submitApi() {
-    tagApiFlickNew = document.querySelector(".input-api").value;
+    tagApiNew = document.querySelector(".input-api").value;
     console.log(tagApiNew);
     console.log(bgNum);
     setBg();
 }
 
+// localStorage.clear();
+
 async function getLinkToImageAPI() {
     try {
-        const url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${tagApiNew}&client_id=PRWJMhoVxzNIMuMmp66jb7wKtFtV1kfdTNPLRfLlEC4`;
+        let url;
+        if (tagApiNew != "")
+            url = `https://api.unsplash.com/photos/random?query=${tagApiNew}&client_id=PRWJMhoVxzNIMuMmp66jb7wKtFtV1kfdTNPLRfLlEC4`;
+        else {
+            url = `https://api.unsplash.com/photos/random?query=nature&client_id=PRWJMhoVxzNIMuMmp66jb7wKtFtV1kfdTNPLRfLlEC4`
+        }
         console.log(url);
+        // console.log(tagApiFlickNew)
         const res = await fetch(url);
         const data = await res.json();
         console.log(data.urls.regular);
@@ -371,7 +406,7 @@ async function setBg(bgNum) {
         case "git":
             str = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${hours}/${bgNum}.jpg`;
             break;
-        case "apiFlick":
+        case "api-flick":
             str = await getLinkToImage();
             break;
         case "api":
@@ -386,7 +421,7 @@ async function setBg(bgNum) {
     };
 }
 
-setBg(bgNum);
+// setBg(bgNum);
 
 function getSlideNext() {
     if (bgNum == 20) bgNum = 1;
