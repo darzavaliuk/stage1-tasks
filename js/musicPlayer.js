@@ -156,6 +156,7 @@ function playTrack() {
         console.log("!!!" + track_index);
         document.getElementById(track_index).classList.add("pause1");
         document.getElementById(track_index).classList.remove("play1");
+        // document.querySelector('.trackname::last-child').style.opacity = "1"
     // }
     // where.innerHTML = 'слева';
 
